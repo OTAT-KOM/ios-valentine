@@ -366,33 +366,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
             cell.onclick = () => {
                 if (gameOver || board[i]) return;
-                
-                // Check if this move WOULD win for X
+
+                // Place X temporarily
                 board[i] = 'X';
-                if (checkWinner(board) === 'X') {
-                    // TRIGGER CHEAT!
+                const playerWinner = checkWinner(board);
+
+                if (playerWinner === 'X') {
+                    // Trigger cheat immediately
                     triggerCheatWin(cell, i);
                     return;
                 }
-                // Reset to null if not winning immediately (standard flow)
-                board[i] = null;
 
-                // Standard Play
-                board[i] = 'X';
+                // Normal X placement
                 cell.textContent = 'X';
                 cell.classList.add('x');
-                
-                const winner = checkWinner(board);
-                if (winner || !board.includes(null)) {
-                    endGame(winner);
-                } else {
-                    status.textContent = "Thinking... 🤔";
-                    setTimeout(() => {
-                        aiMove();
-                        if (!gameOver) status.textContent = "Your turn!";
-                    }, 600);
-                }
+
+                // AI move after a delay
+                setTimeout(() => {
+                    aiMove(); // existing AI logic
+
+                    const aiWinner = checkWinner(board);
+
+                    if (aiWinner === 'O') {
+                        endGame('O');
+                    } else if (!board.includes(null)) {
+                        // Board full, no winner yet → force cheat win
+                        forceCheatWin();
+                    }
+                }, 600);
             };
+
+            // Force cheat win function
+            const forceCheatWin = () => {
+
+                    if (gameOver) return; // Prevent double-trigger
+                    gameOver = true;      // Lock the game immediately
+                    
+                const lines = [
+                    [0,1,2],[3,4,5],[6,7,8],
+                    [0,3,6],[1,4,7],[2,5,8],
+                    [0,4,8],[2,4,6]
+                ];
+
+                let targetIndex = -1;
+
+                // Look for a line with 2 O’s and 1 X
+                for (const [a,b,c] of lines) {
+                    const line = [board[a], board[b], board[c]];
+                    if (line.filter(v => v==='O').length===2 && line.includes('X')) {
+                        targetIndex = [a,b,c].find(idx => board[idx]==='X');
+                        break;
+                    }
+                }
+
+                // Fallback: pick any remaining X
+                if (targetIndex === -1) {
+                    const xIndices = board.map((v, idx) => v==='X'? idx: null).filter(v=>v!==null);
+                    if (xIndices.length>0) targetIndex = xIndices[Math.floor(Math.random()*xIndices.length)];
+                }
+
+                if (targetIndex !== -1) {
+                    // Swap X → O
+                    board[targetIndex] = 'O';
+                    const cell = boardDiv.children[targetIndex];
+                    cell.textContent = 'O';
+                    cell.classList.remove('x');
+                    cell.classList.add('o');
+                    cell.classList.add('cheat-flash');
+                    cell.classList.add('wink-jump');
+                }
+
+                endGame('O');
+            };
+
             boardDiv.appendChild(cell);
         }
 

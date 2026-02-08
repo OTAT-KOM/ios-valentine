@@ -12,7 +12,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /* Fallback */
+    height: 100dvh; /* Dynamic viewport height for mobile */
     overflow: hidden;
     transition: background-color 0.5s ease;
 }
@@ -406,7 +407,7 @@ body {
     background-color: transparent;
     width: 100%;
     padding: 10px;
-    padding-bottom: 20px;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
     transform: translateY(100%);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -738,7 +739,7 @@ body {
 }
 
 #hidden-character.show {
-    bottom: 70px;
+    bottom: calc(70px + env(safe-area-inset-bottom));
     animation: peekaboo 2s infinite;
 }
 
