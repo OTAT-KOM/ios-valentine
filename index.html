@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valentine's Message</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="ios-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="time">9:41</div>
+            <div class="notch"></div>
+            <div class="status-icons">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="back-button"><i class="fas fa-chevron-left"></i></div>
+            <div class="contact-info">
+                <div class="avatar">
+                    <span class="avatar-initials">V</span>
+                </div>
+                <div class="name-column">
+                    <span class="name">My Valentine 💖</span>
+                    <i class="fas fa-chevron-right arrow-icon"></i>
+                </div>
+            </div>
+            <div class="header-actions">
+                <i class="fas fa-video"></i>
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area" id="chat-area">
+            <div class="system-notification">Someone is trying to ask you something…</div>
+            <div class="timestamp">Today 9:41 AM</div>
+            <!-- Messages will be injected here by JS -->
+        </div>
+
+        <!-- Input Area (Visual only) -->
+        <div class="input-area">
+            <i class="fas fa-plus"></i>
+            <div class="input-field">
+                <span class="placeholder">iMessage</span>
+                <i class="fas fa-microphone"></i>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-watermark">
+            Seen &middot; made by <span class="clickable-footer">shfour</span>
+        </div>
+
+        <!-- Action Sheet Overlay -->
+        <div id="action-sheet-overlay" class="action-sheet-overlay">
+            <div class="action-sheet">
+                <div class="action-sheet-header">shfour</div>
+                <div class="action-sheet-item" onclick="window.open('https://www.instagram.com/shfour.web/', '_blank')">Instagram</div>
+                <div class="action-sheet-item" onclick="window.open('https://www.tiktok.com/@shfrrrrrrs', '_blank')">TikTok</div>
+                <div class="action-sheet-cancel">Cancel</div>
+            </div>
+        </div>
+
+        <!-- Interactive Elements -->
+        <div id="hidden-character">💘</div>
+    </div>
+
+    <!-- Canvas for Confetti -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
