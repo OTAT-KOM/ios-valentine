@@ -228,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const endGame = (winner) => {
+            
             gameOver = true;
             if (winner === 'O') {
                 status.textContent = 'I win! 😎';
@@ -385,6 +386,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     aiMove(); // existing AI logic
 
+                    if (gameOver) return;
+
                     const aiWinner = checkWinner(board);
 
                     if (aiWinner === 'O') {
@@ -401,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (gameOver) return; // Prevent double-trigger
                     gameOver = true;      // Lock the game immediately
-                    
+
                 const lines = [
                     [0,1,2],[3,4,5],[6,7,8],
                     [0,3,6],[1,4,7],[2,5,8],
